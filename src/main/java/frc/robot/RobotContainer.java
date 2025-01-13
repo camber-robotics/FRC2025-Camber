@@ -43,6 +43,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("test", Commands.print("Hello World"));
   }
 
+// The real world (whats that?)
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                                 () -> m_driverController.getLeftY() * -1,
                                                                 () -> m_driverController.getLeftX() * -1)
@@ -51,15 +52,16 @@ public class RobotContainer {
                                                                 .scaleTranslation(0.8)
                                                                 .allianceRelativeControl(true);
 
-  SwerveInputStream driveDriectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(m_driverController::getRightX,
+  SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(m_driverController::getRightX,
                                                                                              m_driverController::getRightY)
                                                                                              .headingWhile(true);
 
-  Command driveFieldOrientedDriectAngle = drivebase.driveFieldOriented(driveDriectAngle);
+  Command driveFieldOrientedDriectAngle = drivebase.driveFieldOriented(driveDirectAngle);
 
   Command driveFieldOrientedAngularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
 
-
+  Command driveSetpointGen = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngle);
+//Non reality code
 
 
   SwerveInputStream driveAngularVelocitySim = SwerveInputStream.of(drivebase.getSwerveDrive(),
@@ -82,7 +84,7 @@ public class RobotContainer {
 
   Command driveFieldOrientedDirectAngleSim = drivebase.driveFieldOriented(driveDirectAngleSim);
 
-
+  Command driveSetpointGenSim = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngleSim);
 
 
   /**
