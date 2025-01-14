@@ -108,8 +108,12 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
+        m_driverController.button(4).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
+                                                                                (Meter.of(6.1),
+                                                                                Meter.of(4)),
+                                                                        Rotation2d.fromDegrees(-50))));
         m_driverController.button(3).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
-                                                                                (Meter.of(3.2),
+                                                                                (Meter.of(3.3),
                                                                                 Meter.of(5.4)),
                                                                         Rotation2d.fromDegrees(-50))));
         //Processor
