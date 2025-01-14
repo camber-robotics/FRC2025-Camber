@@ -11,8 +11,15 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveInputStream;
 
+import static edu.wpi.first.units.Units.Meter;
+import static edu.wpi.first.units.Units.Rotation;
+
 import com.pathplanner.lib.auto.NamedCommands;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -101,14 +108,26 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-        m_driverController.button(1).whileTrue(drivebase.sysIdDriveMotorCommand());
+        m_driverController.button(3).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
+                                                                                (Meter.of(3.2),
+                                                                                Meter.of(5.4)),
+                                                                        Rotation2d.fromDegrees(-50))));
+        //Processor
+        m_driverController.button(2).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
+                                                                                (Meter.of(11.5),
+                                                                                Meter.of(7.5)),
+                                                                        Rotation2d.fromDegrees(90))));  
+        //Human Playerstation                                                                                
+        m_driverController.button(1).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
+                                                                                (Meter.of(1),
+                                                                                Meter.of(7)),
+                                                                          Rotation2d.fromDegrees(130))));        
+            // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
+            // cancelling on release.
+          }
         
-
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-  }
-
-  /**
+        
+          /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
