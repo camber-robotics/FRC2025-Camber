@@ -108,10 +108,33 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-        m_driverController.button(4).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
-                                                                                (Meter.of(6.1),
-                                                                                Meter.of(4)),
+
+        m_driverController.button(8).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
+                                                                                (Meter.of(5),
+                                                                                Meter.of(3)),
+                                                                        Rotation2d.fromDegrees(0))));
+                                                                        
+         m_driverController.button(7).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
+                                                                        (Meter.of(3.5),
+                                                                        Meter.of(2.5)),
+                                                                Rotation2d.fromDegrees(125))));
+
+        m_driverController.button(6).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
+                                                                                (Meter.of(5),
+                                                                                Meter.of(3)),
                                                                         Rotation2d.fromDegrees(-50))));
+
+         m_driverController.button(5).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
+                                                                        (Meter.of(6.1),
+                                                                        Meter.of(4)),
+                                                                Rotation2d.fromDegrees(125))));
+
+        m_driverController.button(4).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
+                                                                                (Meter.of(5.1),
+                                                                                Meter.of(5.2)),
+                                                                        Rotation2d.fromDegrees(175))));
+
+
         m_driverController.button(3).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
                                                                                 (Meter.of(3.3),
                                                                                 Meter.of(5.4)),
