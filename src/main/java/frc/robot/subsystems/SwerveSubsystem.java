@@ -208,7 +208,7 @@ public Command driveFieldOriented(Supplier<ChassisSpeeds> velocity){
         config,
         new SysIdRoutine.Mechanism(
             (Voltage voltage) -> {
-              SwerveDriveTest.angleModules(swerveDrive, Rotation2d.fromDegrees( 45));
+              SwerveDriveTest.angleModules(swerveDrive, Rotation2d.fromDegrees( 95));
               SwerveDriveTest.powerDriveMotorsVoltage(
                   swerveDrive, Math.min(voltage.in(Volts), maxVolts));
             },
@@ -219,7 +219,7 @@ public Command driveFieldOriented(Supplier<ChassisSpeeds> velocity){
             },
             this));
   }
-
+  
   public Command sysIdDriveMotorCommand()
   {
     return SwerveDriveTest.generateSysIdCommand(

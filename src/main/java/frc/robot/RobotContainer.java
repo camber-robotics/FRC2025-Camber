@@ -108,7 +108,7 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-
+        m_driverController.button(9).whileTrue(drivebase.sysIdDriveMotorCommand());      
         m_driverController.button(8).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
                                                                                 (Meter.of(5),
                                                                                 Meter.of(3)),
@@ -148,7 +148,8 @@ public class RobotContainer {
         m_driverController.button(1).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
                                                                                 (Meter.of(1),
                                                                                 Meter.of(7)),
-                                                                          Rotation2d.fromDegrees(130))));        
+                                                                          Rotation2d.fromDegrees(130))));  
+                                                                                
             // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
             // cancelling on release.
           }
