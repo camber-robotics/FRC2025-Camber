@@ -64,8 +64,14 @@ public final class Constants {
     public static final double kElevatorDrumRadius = Units.inchesToMeters(2.0);
     public static final double kCarriageMass = 4.0; // kg
 
+
+    public static final double kRotaionToMeters = kElevatorDrumRadius * 2 * Math.PI;
+    public static final double kRPMtoMPS = (kElevatorDrumRadius * 2 * Math.PI) / 60;
     // Encoder is reset to measure 0 at the bottom, so minimum height is 0.
     public static final double kMinElevatorHeightMeters = 0.0;
     public static final double kMaxElevatorHeightMeters = 10.25;
+
+    public static final double kElevatorMaxVelocity = 3.5;
+    public static final double kElevatorMaxAcceleration = 2.5;
   }
 }

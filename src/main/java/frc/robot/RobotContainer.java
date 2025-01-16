@@ -115,7 +115,13 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-        m_driverController.button(9).whileTrue(drivebase.sysIdDriveMotorCommand());      
+
+        m_driverController.button(10).whileTrue(drivebase.sysIdDriveMotorCommand());
+        m_driverController.button(9).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
+                                                                                (Meter.of(3),
+                                                                                Meter.of(4)),
+                                                                          Rotation2d.fromDegrees(-180))));  
+                                                                                              
         m_driverController.button(8).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
                                                                                 (Meter.of(5),
                                                                                 Meter.of(3)),
