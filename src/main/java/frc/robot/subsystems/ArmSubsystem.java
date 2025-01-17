@@ -152,7 +152,6 @@ public class ArmSubsystem extends SubsystemBase {
     RoboRioSim.setVInVoltage(
         BatterySim.calculateDefaultBatteryLoadedVoltage(m_armSim.getCurrentDrawAmps()));
 
-    System.out.println(Units.rotationsToDegrees(m_encoder.getPosition()));
     // Update the Mechanism Arm angle based on the simulated arm angle
     m_arm.setAngle(Units.radiansToDegrees(m_armSim.getAngleRads()));
 
