@@ -115,6 +115,39 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
+        m_driverController.button(17).whileTrue(//Human player reload station
+          drivebase.driveToPose(
+          new Pose2d(new Translation2d
+          (Meter.of(1),
+          Meter.of(7)),
+    Rotation2d.fromDegrees(130)))
+        .andThen(
+          drivebase.driveToPose(//Coral side 1
+          new Pose2d(new Translation2d
+          (Meter.of(3.4),
+          Meter.of(5.1)),
+          Rotation2d.fromDegrees(-50)))
+        ).andThen(
+          drivebase.driveToPose(//Human Player station
+          new Pose2d(new Translation2d
+          (Meter.of(1),
+           Meter.of(7)),
+          Rotation2d.fromDegrees(130)))
+        ).andThen(
+          drivebase.driveToPose(//Set point
+          new Pose2d(new Translation2d
+          (Meter.of(4.3),
+          Meter.of(6.3)),
+          Rotation2d.fromDegrees(-50)))
+        ).andThen(
+          drivebase.driveToPose( //Coral 2
+          new Pose2d(new Translation2d
+         (Meter.of(5.2),
+         Meter.of(5.2)),
+         Rotation2d.fromDegrees(-120)))
+         )
+        
+        );
 
         m_driverController.button(10).whileTrue(drivebase.sysIdDriveMotorCommand());
         m_driverController.button(9).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
@@ -143,14 +176,14 @@ public class RobotContainer {
                                                                 Rotation2d.fromDegrees(125))));
 
         m_driverController.button(4).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
-                                                                                (Meter.of(5.1),
+                                                                                (Meter.of(5.2),
                                                                                 Meter.of(5.2)),
-                                                                        Rotation2d.fromDegrees(175))));
+                                                                        Rotation2d.fromDegrees(-120))));
 
 
         m_driverController.button(3).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
                                                                                 (Meter.of(3.3),
-                                                                                Meter.of(5.4)),
+                                                                                Meter.of(5.3)),
                                                                         Rotation2d.fromDegrees(-50))));
         //Processor
         m_driverController.button(2).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
