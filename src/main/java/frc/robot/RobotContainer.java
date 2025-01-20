@@ -115,38 +115,31 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-        m_driverController.button(17).whileTrue(//Human player reload station
-          drivebase.driveToPose(
-          new Pose2d(new Translation2d
-          (Meter.of(1),
-          Meter.of(7)),
-    Rotation2d.fromDegrees(130)))
-        .andThen(
+        m_driverController.button(17).whileTrue( //True lazy button
           drivebase.driveToPose(//Coral side 1
-          new Pose2d(new Translation2d
-          (Meter.of(3.4),
-          Meter.of(5.1)),
-          Rotation2d.fromDegrees(-50)))
-        ).andThen(
+          new Pose2d(new Translation2d(Meter.of(3.4),Meter.of(5.1)), Rotation2d.fromDegrees(-50)))
+        .andThen(
           drivebase.driveToPose(//Human Player station
-          new Pose2d(new Translation2d
-          (Meter.of(1),
-           Meter.of(7)),
-          Rotation2d.fromDegrees(130)))
+          new Pose2d(new Translation2d(Meter.of(1),Meter.of(7)), Rotation2d.fromDegrees(130)))
         ).andThen(
           drivebase.driveToPose(//Set point
-          new Pose2d(new Translation2d
-          (Meter.of(4.3),
-          Meter.of(6.3)),
-          Rotation2d.fromDegrees(-50)))
+          new Pose2d(new Translation2d(Meter.of(4.3), Meter.of(6.3)), Rotation2d.fromDegrees(-50)))
         ).andThen(
-          drivebase.driveToPose( //Coral 2
-          new Pose2d(new Translation2d
-         (Meter.of(5.2),
-         Meter.of(5.2)),
-         Rotation2d.fromDegrees(-120)))
-         )
-        
+          drivebase.driveToPose( //Coral side 2
+          new Pose2d(new Translation2d(Meter.of(5.2), Meter.of(5.2)), Rotation2d.fromDegrees(-120)))
+         ).andThen(
+          drivebase.driveToPose(//Set point
+          new Pose2d(new Translation2d(Meter.of(4.3), Meter.of(6.3)), Rotation2d.fromDegrees(130)))
+        ).andThen(
+          drivebase.driveToPose(//Human Player station
+          new Pose2d(new Translation2d(Meter.of(1), Meter.of(7)), Rotation2d.fromDegrees(130)))
+        ).andThen (
+          drivebase.driveToPose(//Set point
+          new Pose2d(new Translation2d(Meter.of(6.5), Meter.of(5.6)), Rotation2d.fromDegrees(130)))
+        ).andThen(//Coral side 3
+          drivebase.driveToPose(new Pose2d(new Translation2d(Meter.of(6.1), Meter.of(4)), Rotation2d.fromDegrees(180)))
+        )
+
         );
 
         m_driverController.button(10).whileTrue(drivebase.sysIdDriveMotorCommand());
@@ -173,7 +166,7 @@ public class RobotContainer {
          m_driverController.button(5).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
                                                                         (Meter.of(6.1),
                                                                         Meter.of(4)),
-                                                                Rotation2d.fromDegrees(125))));
+                                                                Rotation2d.fromDegrees(180))));
 
         m_driverController.button(4).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
                                                                                 (Meter.of(5.2),
@@ -224,4 +217,6 @@ public class RobotContainer {
    public ParallelCommandGroup setElevArm (double goal, double degree){
   return  new ParallelCommandGroup(elevator.setGoal(goal), arm.setGoal(degree));
  }
+
+
 }
