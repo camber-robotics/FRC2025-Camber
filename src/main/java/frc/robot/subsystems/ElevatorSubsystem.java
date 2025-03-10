@@ -19,6 +19,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.simulation.BatterySim;
 import edu.wpi.first.wpilibj.simulation.ElevatorSim;
@@ -122,6 +123,8 @@ public class ElevatorSubsystem extends SubsystemBase
    */
   public void reachGoal(double goal)
   {
+    // System.out.print("set goal: " + goal);
+    DriverStation.reportError("pressed " + goal, false);
     m_controller.setReference(goal,
                               ControlType.kPosition,
                               ClosedLoopSlot.kSlot0,

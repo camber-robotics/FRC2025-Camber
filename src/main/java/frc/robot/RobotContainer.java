@@ -50,7 +50,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     DriverStation.silenceJoystickConnectionWarning(true);
-    elevator.setDefaultCommand(elevator.setGoal(0));
+    //elevator.setDefaultCommand(elevator.setGoal(0.5));
     arm.setDefaultCommand(arm.setGoal(0));
     configureBindings();
     drivebase.setDefaultCommand(!RobotBase.isSimulation() ? driveFieldOrientedAngularVelocity : driveFieldOrientedDirectAngleSim);
@@ -58,9 +58,10 @@ public class RobotContainer {
   }
 
 // The real world (whats that?)
+
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                                 () -> m_driverController.getLeftY() * -1,
-                                                                () -> m_driverController.getLeftX() * -1)
+                                                                () -> m_driverController.getLeftX() * -1) // set to 0 
                                                                 .withControllerRotationAxis(m_driverController::getRightX)
                                                                 .deadband(OperatorConstants.DEADBAND)
                                                                 .scaleTranslation(0.8)
@@ -142,6 +143,10 @@ public class RobotContainer {
 
         );
 
+        m_driverController.b().whileTrue(elevator.setGoal(0.5));
+        m_driverController.a().whileTrue(elevator.setGoal(3.5));
+
+        /*
         m_driverController.button(10).whileTrue(drivebase.sysIdDriveMotorCommand());
         m_driverController.button(9).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
                                                                                 (Meter.of(3),
@@ -200,8 +205,9 @@ public class RobotContainer {
             m_driverController.button(15).whileTrue(arm.setGoal(90));
             m_driverController.button(16).whileTrue(setElevArm(10, 70));
             elevator.atHeight(5, 0.1).whileTrue(Commands.print("I AM ALIVE, YAAA HAAAAA"));
-        
+        */
           }
+             
         
         
           /**
