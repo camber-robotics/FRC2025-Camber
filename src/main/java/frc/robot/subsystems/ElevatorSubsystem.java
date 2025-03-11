@@ -189,4 +189,8 @@ public class ElevatorSubsystem extends SubsystemBase
   {
     updateTelemetry();
   }
+
+  public Command setPower(double d) {
+    return run(()->m_motor.set(d));
+  }
 }

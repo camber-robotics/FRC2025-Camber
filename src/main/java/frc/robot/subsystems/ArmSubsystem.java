@@ -101,7 +101,9 @@ public class ArmSubsystem extends SubsystemBase {
   /** Subsystem constructor. */
   public ArmSubsystem() {
     SparkMaxConfig config = new SparkMaxConfig();
-    config.encoder
+    config
+    .inverted(true)
+    .encoder
     .positionConversionFactor(1/ArmConstants.kArmReduction)
     .velocityConversionFactor(1);
     config.closedLoop
@@ -199,6 +201,13 @@ public class ArmSubsystem extends SubsystemBase {
   public void stop() {
     m_motor.set(0.0);
   }
+
+
+
+
+public Command setPower(double d) {
+  return run(()->m_motor.set(d));
+}
 
 
 

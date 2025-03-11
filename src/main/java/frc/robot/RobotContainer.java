@@ -10,6 +10,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveInputStream;
 
@@ -45,6 +46,7 @@ public class RobotContainer {
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
   private final ElevatorSubsystem     elevator           = new ElevatorSubsystem();
   private final ArmSubsystem          arm                = new ArmSubsystem();
+  private final IntakeSubsystem       intake             = new IntakeSubsystem();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -60,11 +62,11 @@ public class RobotContainer {
 // The real world (whats that?)
 
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> m_driverController.getLeftY() * -1,
-                                                                () -> m_driverController.getLeftX() * -1) // set to 0 
+                                                                () -> m_driverController.getLeftY() ,
+                                                                () -> m_driverController.getLeftX() * 1) // set to 0 
                                                                 .withControllerRotationAxis(m_driverController::getRightX)
                                                                 .deadband(OperatorConstants.DEADBAND)
-                                                                .scaleTranslation(0.8)
+                                                                .scaleTranslation(0.5)
                                                                 .allianceRelativeControl(true);
 
   SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(m_driverController::getRightX,
@@ -142,9 +144,20 @@ public class RobotContainer {
         )
 
         );
+        elevator.setDefaultCommand(elevator.setPower(0));
+        m_driverController.povDown().whileTrue(elevator.setPower(-0.5));
+        m_driverController.povUp().whileTrue(elevator.setPower(0.5));
+        intake.setDefaultCommand(intake.setPower(0));
+        arm.setDefaultCommand(arm.setPower(0));
+        m_driverController.x().whileTrue(arm.setPower(-0.1));
+        m_driverController.y().whileTrue(arm.setPower(0.1));
+        m_driverController.leftBumper().whileTrue(intake.setPower(-0.5));
+        m_driverController.rightBumper().whileTrue(intake.setPower(0.5));
 
-        m_driverController.b().whileTrue(elevator.setGoal(0.5));
-        m_driverController.a().whileTrue(elevator.setGoal(3.5));
+
+        NamedCommands.registerCommand("out", intake.setPower(0.5).withTimeout(3));
+        // m_driverController.b().whileTrue(elevator.setGoal(0.5));
+        // m_driverController.a().whileTrue(elevator.setGoal(3.5));
 
         /*
         m_driverController.button(10).whileTrue(drivebase.sysIdDriveMotorCommand());

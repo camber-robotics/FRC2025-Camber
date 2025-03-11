@@ -60,8 +60,8 @@ public final class Constants {
     public static final double kElevatorkV = 0.762; // volt per velocity (V/(m/s))
     public static final double kElevatorkA = 0.0; // volt per acceleration (V/(m/s²))
 
-    public static final double kElevatorGearing = 10.0;
-    public static final double kElevatorDrumRadius = Units.inchesToMeters(2.0);
+    public static final double kElevatorGearing = 25.0;
+    public static final double kElevatorDrumRadius = (16 * Units.inchesToMeters(0.25)) / (2 * Math.PI);
     public static final double kCarriageMass = 4.0; // kg
 
 
