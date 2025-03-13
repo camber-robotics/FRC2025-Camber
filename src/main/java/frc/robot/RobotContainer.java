@@ -64,9 +64,9 @@ public class RobotContainer {
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                                 () -> m_driverController.getLeftY() ,
                                                                 () -> m_driverController.getLeftX() * 1) // set to 0 
-                                                                .withControllerRotationAxis(m_driverController::getRightX)
+                                                                .withControllerRotationAxis(() -> -m_driverController.getRightX()) // m_driverController::getRightX
                                                                 .deadband(OperatorConstants.DEADBAND)
-                                                                .scaleTranslation(0.5)
+                                                                .scaleTranslation(.8)
                                                                 .allianceRelativeControl(true);
 
   SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(m_driverController::getRightX,
@@ -145,19 +145,19 @@ public class RobotContainer {
 
         );
         elevator.setDefaultCommand(elevator.setPower(0));
-        m_driverController.povDown().whileTrue(elevator.setPower(-0.5));
-        m_driverController.povUp().whileTrue(elevator.setPower(0.5));
+        m_driverController.povDown().whileTrue(elevator.setPower(-0.7));
+        m_driverController.povUp().whileTrue(elevator.setPower(0.7));
         intake.setDefaultCommand(intake.setPower(0));
         arm.setDefaultCommand(arm.setPower(0));
-        m_driverController.x().whileTrue(arm.setPower(-0.1));
-        m_driverController.y().whileTrue(arm.setPower(0.1));
-        m_driverController.leftBumper().whileTrue(intake.setPower(-0.5));
-        m_driverController.rightBumper().whileTrue(intake.setPower(0.5));
+        m_driverController.x().whileTrue(arm.setPower(-.3));
+        m_driverController.y().whileTrue(arm.setPower(.3));
+        m_driverController.leftBumper().whileTrue(intake.setPower(0.4));
+        m_driverController.rightBumper().whileTrue(intake.setPower(-0.4));
 
 
         NamedCommands.registerCommand("out", intake.setPower(0.5).withTimeout(3));
-        // m_driverController.b().whileTrue(elevator.setGoal(0.5));
-        // m_driverController.a().whileTrue(elevator.setGoal(3.5));
+        //m_driverController.b().whileTrue(elevator.setGoal(0.5));
+        //m_driverController.a().whileTrue(elevator.setGoal(3.5));
 
         /*
         m_driverController.button(10).whileTrue(drivebase.sysIdDriveMotorCommand());
@@ -217,8 +217,8 @@ public class RobotContainer {
             m_driverController.button(14).whileTrue(arm.setGoal(45));
             m_driverController.button(15).whileTrue(arm.setGoal(90));
             m_driverController.button(16).whileTrue(setElevArm(10, 70));
-            elevator.atHeight(5, 0.1).whileTrue(Commands.print("I AM ALIVE, YAAA HAAAAA"));
-        */
+            elevator.atHeight(5, 0.1).whileTrue(Commands.print("I AM ALIVE, YAAA HAAAAA"));*/
+        
           }
              
         
