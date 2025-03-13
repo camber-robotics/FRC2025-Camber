@@ -149,12 +149,12 @@ public class RobotContainer {
         m_driverController.povUp().whileTrue(elevator.setPower(0.7));
         intake.setDefaultCommand(intake.setPower(0));
         arm.setDefaultCommand(arm.setPower(0));
-        m_driverController.x().whileTrue(arm.setPower(-.3));
+        m_driverController.a().whileTrue(arm.setPower(-.3));
         m_driverController.y().whileTrue(arm.setPower(.3));
         m_driverController.leftBumper().whileTrue(intake.setPower(0.4));
         m_driverController.rightBumper().whileTrue(intake.setPower(-0.4));
 
-
+        NamedCommands.registerCommand("raise", elevator.setPower(0.25).withTimeout(0.1));
         NamedCommands.registerCommand("out", intake.setPower(0.5).withTimeout(3));
         //m_driverController.b().whileTrue(elevator.setGoal(0.5));
         //m_driverController.a().whileTrue(elevator.setGoal(3.5));
@@ -230,7 +230,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand("New Auto");
+    return drivebase.getAutonomousCommand("Blue Middle Auto");
   }
 
    public ParallelCommandGroup setElevArm (double goal, double degree){
