@@ -7,19 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Mid to Mid Path"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "raise"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "out"
+            "pathName": "Newest Path"
           }
         }
       ]

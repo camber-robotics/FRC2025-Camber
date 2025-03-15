@@ -62,9 +62,10 @@ public class RobotContainer {
 // The real world (whats that?)
 
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> m_driverController.getLeftY() ,
-                                                                () -> m_driverController.getLeftX() * 1) // set to 0 
-                                                                .withControllerRotationAxis(() -> -m_driverController.getRightX()) // m_driverController::getRightX
+                                                                () -> m_driverController.getLeftY() *-1 ,
+
+                                                                () -> m_driverController.getLeftX() * -1) // set to 0 
+                                                                .withControllerRotationAxis(() -> m_driverController.getRightX() * -1) // m_driverController::getRightX
                                                                 .deadband(OperatorConstants.DEADBAND)
                                                                 .scaleTranslation(.8)
                                                                 .allianceRelativeControl(true);
@@ -145,8 +146,8 @@ public class RobotContainer {
 
         );
         elevator.setDefaultCommand(elevator.setPower(0));
-        m_driverController.povDown().whileTrue(elevator.setPower(-0.7));
-        m_driverController.povUp().whileTrue(elevator.setPower(0.7));
+        m_driverController.povDown().whileTrue(elevator.goDown());
+        m_driverController.povUp().whileTrue(elevator.goUp());
         intake.setDefaultCommand(intake.setPower(0));
         arm.setDefaultCommand(arm.setPower(0));
         m_driverController.a().whileTrue(arm.setPower(-.3));
@@ -154,8 +155,8 @@ public class RobotContainer {
         m_driverController.leftBumper().whileTrue(intake.setPower(0.4));
         m_driverController.rightBumper().whileTrue(intake.setPower(-0.4));
 
-        NamedCommands.registerCommand("raise", elevator.setPower(0.25).withTimeout(0.1));
-        NamedCommands.registerCommand("out", intake.setPower(0.5).withTimeout(3));
+        NamedCommands.registerCommand("raise", elevator.goUp().withTimeout(0.15));
+        NamedCommands.registerCommand("out", intake.setPower(-0.5).withTimeout(0.5));
         //m_driverController.b().whileTrue(elevator.setGoal(0.5));
         //m_driverController.a().whileTrue(elevator.setGoal(3.5));
 
@@ -230,7 +231,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand("Blue Middle Auto");
+    return drivebase.getAutonomousCommand("New New Auto");
   }
 
    public ParallelCommandGroup setElevArm (double goal, double degree){

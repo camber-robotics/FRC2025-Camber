@@ -188,9 +188,18 @@ public class ElevatorSubsystem extends SubsystemBase
   public void periodic()
   {
     updateTelemetry();
+    SmartDashboard.putNumber("Elevator Rotations", m_encoder.getPosition());
   }
 
   public Command setPower(double d) {
-    return run(()->m_motor.set(d));
+    return runEnd(()->m_motor.set(d), () -> m_motor.set(0));
+  }
+
+  
+  public Command goDown() {
+    return setPower(-0.7).until(() -> m_encoder.getPosition() <= 0).unless(() -> m_encoder.getPosition() <= 0);
+  }
+  public Command goUp() {
+    return setPower(0.7).until(() -> m_encoder.getPosition() >= 17.5).unless(() -> m_encoder.getPosition() >= 17.5);
   }
 }
