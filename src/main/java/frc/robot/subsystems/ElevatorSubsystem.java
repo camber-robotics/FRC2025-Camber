@@ -4,14 +4,16 @@
 
 package frc.robot.subsystems;
 
+//mport java.lang.Math;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.sim.SparkMaxSim;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.MAXMotionConfig.MAXMotionPositionMode;
@@ -196,10 +198,26 @@ public class ElevatorSubsystem extends SubsystemBase
   }
 
   
-  public Command goDown() {
-    return setPower(-0.7).until(() -> m_encoder.getPosition() <= 0).unless(() -> m_encoder.getPosition() <= 0);
+  public Command goDown(double power) {
+    return setPower(-power).until(() -> m_encoder.getPosition() <= 0.03)
+                           .unless(() -> m_encoder.getPosition() <= 0.03);
   }
-  public Command goUp() {
-    return setPower(0.7).until(() -> m_encoder.getPosition() >= 17.5).unless(() -> m_encoder.getPosition() >= 17.5);
+  public Command goUp(double power) {
+    return setPower(power).until(() -> m_encoder.getPosition() >= 17.5)
+                          .unless(() -> m_encoder.getPosition() >= 17.5);
   }
+
+  // 
+  public Command goTo(double pos, double pow) {
+    return defer(()->{
+    if (m_encoder.getPosition() > pos)
+    return goDown(pow).until(() -> m_encoder.getPosition() <= pos)
+    .andThen(setPower(0));
+    if (m_encoder.getPosition() < pos)
+    return goUp(pow).until(() -> m_encoder.getPosition() >= pos)
+    .andThen(setPower(0));
+    return setPower(0);
+    });
+  }
+
 }

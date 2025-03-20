@@ -17,6 +17,7 @@ import com.revrobotics.spark.config.MAXMotionConfig.MAXMotionPositionMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
@@ -202,13 +203,38 @@ public class ArmSubsystem extends SubsystemBase {
     m_motor.set(0.0);
   }
 
-
+@Override
+public void periodic() {
+  SmartDashboard.putNumber("arm rotations", m_encoder.getPosition());
+}
 
 
 public Command setPower(double d) {
   return run(()->m_motor.set(d));
 }
 
+public Command tiltDown(double power) {
+  return setPower(-power).until(() -> m_encoder.getPosition() <= -0.82)
+                         .unless(() -> m_encoder.getPosition() <= -0.82);
+}
+public Command tiltUp(double power) {
+  return setPower(power).until(() -> m_encoder.getPosition() >= -0.01)
+                        .unless(() -> m_encoder.getPosition() >= -0.01);
+}
+
+public Command tiltTo(double pos, double pow) {
+  return defer(()->{
+  if (m_encoder.getPosition() > pos)
+    return tiltDown(pow).until(() -> m_encoder.getPosition() <= pos)
+    .andThen(setPower(0));
+                        // .unless(() -> m_encoder.getPosition() == pos);
+  if (m_encoder.getPosition() < pos)
+    return tiltUp(pow).until(() -> m_encoder.getPosition() >= pos)
+    .andThen(setPower(0));
+                        //.unless(() -> m_encoder.getPosition() == pos);
+  return setPower(0);
+  });
+}
 
 
 

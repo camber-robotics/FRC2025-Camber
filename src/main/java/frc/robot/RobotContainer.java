@@ -44,6 +44,8 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
+    private final CommandXboxController m_operatorController =
+      new CommandXboxController(OperatorConstants.kOperatorControllerPort);
   private final ElevatorSubsystem     elevator           = new ElevatorSubsystem();
   private final ArmSubsystem          arm                = new ArmSubsystem();
   private final IntakeSubsystem       intake             = new IntakeSubsystem();
@@ -145,20 +147,55 @@ public class RobotContainer {
         )
 
         );
-        elevator.setDefaultCommand(elevator.setPower(0));
-        m_driverController.povDown().whileTrue(elevator.goDown());
-        m_driverController.povUp().whileTrue(elevator.goUp());
-        intake.setDefaultCommand(intake.setPower(0));
-        arm.setDefaultCommand(arm.setPower(0));
-        m_driverController.a().whileTrue(arm.setPower(-.3));
-        m_driverController.y().whileTrue(arm.setPower(.3));
-        m_driverController.leftBumper().whileTrue(intake.setPower(0.4));
-        m_driverController.rightBumper().whileTrue(intake.setPower(-0.4));
 
-        NamedCommands.registerCommand("raise", elevator.goUp().withTimeout(0.15));
+        //elevator
+        elevator.setDefaultCommand(elevator.setPower(0));
+        m_operatorController.povDown().whileTrue(elevator.goDown(0.7));
+        m_operatorController.povUp().whileTrue(elevator.goUp(0.7));
+        
+
+        // New Command Below
+        //m_operatorController.b().whileTrue(elevator.goTo(10.14,0.5));
+
+        //intake
+        intake.setDefaultCommand(intake.setPower(0));
+        m_operatorController.leftBumper().whileTrue(intake.setPower(0.4));
+        m_operatorController.rightBumper().whileTrue(intake.setPower(-0.4));
+        m_operatorController.x().whileTrue(intake.setPower(-0.2)); //slow outtake
+        //m_operatorController.b().whileTrue(arm.tiltTo(-0.77485,0.5));
+        
+        //arm
+        arm.setDefaultCommand(arm.setPower(0));
+        m_operatorController.a().whileTrue(arm.tiltDown(.3));
+        m_operatorController.y().whileTrue(arm.tiltUp(.3));
+        
+        //new left d-pad control added 3/18/2025 for L2 arm 
+        m_operatorController.povLeft().onTrue(arm.tiltTo(-0.77485, .3)); 
+        //doesn't work; won't go to -0.77485 position for L2, keeps going down to limit 
+         
+        // right d-pad control for both elevator and arm L3
+        m_operatorController.povRight().onTrue(arm.tiltTo(-0.77485, .4));
+        m_operatorController.povRight().onTrue(elevator.goTo(10.14, 0.4));
+
+        //set height
+        m_operatorController.b().onTrue(elevator.goTo(3,0.2));
+
+        /*
+         * 
+         */
+
+        // .getRightY & .getRightX is for getting right stick position on the op/drive controller object.
+        // perhaps make it so that intake power is dictated by right stick y position?
+
+
+        NamedCommands.registerCommand("raiseElevator", elevator.setPower(0).withTimeout(0.01));
         NamedCommands.registerCommand("out", intake.setPower(-0.5).withTimeout(0.5));
+        NamedCommands.registerCommand("raiseArm", arm.tiltTo(-0.77485, 0.5).withTimeout(0.2));
+
         //m_driverController.b().whileTrue(elevator.setGoal(0.5));
         //m_driverController.a().whileTrue(elevator.setGoal(3.5));
+
+
 
         /*
         m_driverController.button(10).whileTrue(drivebase.sysIdDriveMotorCommand());
@@ -231,7 +268,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand("New New Auto");
+    return drivebase.getAutonomousCommand("shoot test"); //new new auto worked in comp
   }
 
    public ParallelCommandGroup setElevArm (double goal, double degree){
