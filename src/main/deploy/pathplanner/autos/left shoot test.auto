@@ -7,13 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": null
+            "pathName": "left shoot path"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "out"
           }
         }
       ]
     }
   },
-  "resetOdom": false,
+  "resetOdom": true,
   "folder": null,
   "choreoAuto": false
 }

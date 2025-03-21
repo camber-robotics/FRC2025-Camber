@@ -170,15 +170,23 @@ public class RobotContainer {
         m_operatorController.y().whileTrue(arm.tiltUp(.3));
         
         //new left d-pad control added 3/18/2025 for L2 arm 
-        m_operatorController.povLeft().onTrue(arm.tiltTo(-0.77485, .3)); 
+        m_operatorController.povLeft().onTrue(arm.tiltTo(-0.788, .3));
+        m_operatorController.povLeft().onTrue(elevator.goTo(0, 0.9)); 
         //doesn't work; won't go to -0.77485 position for L2, keeps going down to limit 
          
         // right d-pad control for both elevator and arm L3
-        m_operatorController.povRight().onTrue(arm.tiltTo(-0.77485, .4));
-        m_operatorController.povRight().onTrue(elevator.goTo(10.14, 0.4));
+        m_operatorController.povRight().onTrue(arm.tiltTo(-0.788, .4));
+        m_operatorController.povRight().onTrue(elevator.goTo(11.433, 0.9));
 
         //set height
-        m_operatorController.b().onTrue(elevator.goTo(3,0.2));
+        // m_operatorController.b().onTrue(elevator.goTo(3,0.2));
+
+
+// elevator button b 
+        m_operatorController.b().onTrue(elevator.goTo(0,0.9));
+
+        //arm button b
+        m_operatorController.b().onTrue(arm.tiltTo(-0.69, .4)); 
 
         /*
          * 
@@ -268,7 +276,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand("shoot test"); //new new auto worked in comp
+    return drivebase.getAutonomousCommand("right shoot test"); //new new auto worked in comp
   }
 
    public ParallelCommandGroup setElevArm (double goal, double degree){
