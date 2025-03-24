@@ -152,59 +152,42 @@ public class RobotContainer {
         elevator.setDefaultCommand(elevator.setPower(0));
         m_operatorController.povDown().whileTrue(elevator.goDown(0.7));
         m_operatorController.povUp().whileTrue(elevator.goUp(0.7));
-        
 
-        // New Command Below
-        //m_operatorController.b().whileTrue(elevator.goTo(10.14,0.5));
-
-        //intake
+        //intake/outtake
         intake.setDefaultCommand(intake.setPower(0));
         m_operatorController.leftBumper().whileTrue(intake.setPower(0.4));
         m_operatorController.rightBumper().whileTrue(intake.setPower(-0.4));
         m_operatorController.x().whileTrue(intake.setPower(-0.2)); //slow outtake
         //m_operatorController.b().whileTrue(arm.tiltTo(-0.77485,0.5));
         
-        //arm
+        //arm up/down
         arm.setDefaultCommand(arm.setPower(0));
         m_operatorController.a().whileTrue(arm.tiltDown(.3));
         m_operatorController.y().whileTrue(arm.tiltUp(.3));
         
-        //new left d-pad control added 3/18/2025 for L2 arm 
-        m_operatorController.povLeft().onTrue(arm.tiltTo(-0.788, .3));
-        m_operatorController.povLeft().onTrue(elevator.goTo(0, 0.9)); 
-        //doesn't work; won't go to -0.77485 position for L2, keeps going down to limit 
+        //L2- left d-pad   added 3/18/2025
+        m_operatorController.povLeft().onTrue(arm.tiltTo(-0.74, .3));
+        m_operatorController.povLeft().onTrue(elevator.goTo(0, 0.9));
          
-        // right d-pad control for both elevator and arm L3
+        //L3 - right d-pad
         m_operatorController.povRight().onTrue(arm.tiltTo(-0.788, .4));
-        m_operatorController.povRight().onTrue(elevator.goTo(11.433, 0.9));
+        m_operatorController.povRight().onTrue(elevator.goTo(11.433, 0.8));
 
-        //set height
-        // m_operatorController.b().onTrue(elevator.goTo(3,0.2));
-
-
-// elevator button b 
-        m_operatorController.b().onTrue(elevator.goTo(0,0.9));
-
-        //arm button b
+        //intake? - b
+        m_operatorController.b().onTrue(elevator.goTo(0,0.8));
         m_operatorController.b().onTrue(arm.tiltTo(-0.69, .4)); 
 
-        /*
-         * 
-         */
+        //reset - right trigger
+        m_operatorController.rightTrigger().onTrue(elevator.goTo(0, 0.6));
+        m_operatorController.rightTrigger().onTrue(arm.tiltTo(-0.05,0.8));
+       
+        //auto lines
+        NamedCommands.registerCommand("raiseElevator", elevator.setPower(0).withTimeout(0.2));
+        NamedCommands.registerCommand("out", intake.setPower(-0.3).repeatedly().withTimeout(1));//.withTimeout(1));
+        NamedCommands.registerCommand("raiseArm", arm.tiltTo(-0.74, 0.5));//.withTimeout(0.2));
+        NamedCommands.registerCommand("outPrint", Commands.print("IAMOUT"));//.withTimeout(1));
 
-        // .getRightY & .getRightX is for getting right stick position on the op/drive controller object.
-        // perhaps make it so that intake power is dictated by right stick y position?
-
-
-        NamedCommands.registerCommand("raiseElevator", elevator.setPower(0).withTimeout(0.01));
-        NamedCommands.registerCommand("out", intake.setPower(-0.5).withTimeout(0.5));
-        NamedCommands.registerCommand("raiseArm", arm.tiltTo(-0.77485, 0.5).withTimeout(0.2));
-
-        //m_driverController.b().whileTrue(elevator.setGoal(0.5));
-        //m_driverController.a().whileTrue(elevator.setGoal(3.5));
-
-
-
+        
         /*
         m_driverController.button(10).whileTrue(drivebase.sysIdDriveMotorCommand());
         m_driverController.button(9).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
@@ -276,7 +259,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand("right shoot test"); //new new auto worked in comp
+    return drivebase.getAutonomousCommand("right shoot test"); //new new auto worked in comp; right shoot test
   }
 
    public ParallelCommandGroup setElevArm (double goal, double degree){

@@ -7,19 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "right shoot Path"
+            "pathName": "Copy of right shoot Path"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "raiseArm"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "out"
           }
         }
       ]
