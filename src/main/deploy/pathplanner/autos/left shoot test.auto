@@ -5,15 +5,40 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "left shoot path"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "armL2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "raiseElevator"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.1
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "left shoot path"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "raiseArm"
+            "waitTime": 0.1
           }
         },
         {

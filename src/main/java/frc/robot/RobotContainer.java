@@ -166,94 +166,31 @@ public class RobotContainer {
         m_operatorController.y().whileTrue(arm.tiltUp(.3));
         
         //L2- left d-pad   added 3/18/2025
-        m_operatorController.povLeft().onTrue(arm.tiltTo(-0.74, .3));
+        m_operatorController.povLeft().onTrue(arm.tiltTo(-0.76, .5));
         m_operatorController.povLeft().onTrue(elevator.goTo(0, 0.9));
          
         //L3 - right d-pad
-        m_operatorController.povRight().onTrue(arm.tiltTo(-0.788, .4));
+        m_operatorController.povRight().onTrue(arm.tiltTo(-0.788, .5));
         m_operatorController.povRight().onTrue(elevator.goTo(11.433, 0.8));
 
         //intake? - b
         m_operatorController.b().onTrue(elevator.goTo(0,0.8));
-        m_operatorController.b().onTrue(arm.tiltTo(-0.69, .4)); 
+        m_operatorController.b().onTrue(arm.tiltTo(-0.69, .5)); 
 
         //reset - right trigger
         m_operatorController.rightTrigger().onTrue(elevator.goTo(0, 0.6));
         m_operatorController.rightTrigger().onTrue(arm.tiltTo(-0.05,0.8));
        
         //auto lines
-        NamedCommands.registerCommand("raiseElevator", elevator.setPower(0).withTimeout(0.2));
-        NamedCommands.registerCommand("out", intake.setPower(-0.3).repeatedly().withTimeout(1));//.withTimeout(1));
-        NamedCommands.registerCommand("raiseArm", arm.tiltTo(-0.74, 0.5));//.withTimeout(0.2));
+        NamedCommands.registerCommand("raiseElevator", elevator.goTo(0.3,0.3));//.withTimeout(0.2));
+        NamedCommands.registerCommand("out", intake.setPower(-0.3).repeatedly());//.withTimeout(1));//.withTimeout(1));
+        NamedCommands.registerCommand("armL2", arm.tiltTo(-0.76, 0.6));//.withTimeout(0.2));
         NamedCommands.registerCommand("outPrint", Commands.print("IAMOUT"));//.withTimeout(1));
+        NamedCommands.registerCommand("armIntake", arm.tiltTo(-0.69, 0.4));//.withTimeout(0.2));
 
+  }
         
-        /*
-        m_driverController.button(10).whileTrue(drivebase.sysIdDriveMotorCommand());
-        m_driverController.button(9).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
-                                                                                (Meter.of(3),
-                                                                                Meter.of(4)),
-                                                                          Rotation2d.fromDegrees(-180))));  
-                                                                                              
-        m_driverController.button(8).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
-                                                                                (Meter.of(5),
-                                                                                Meter.of(3)),
-                                                                        Rotation2d.fromDegrees(0))));
-                                                                        
-         m_driverController.button(7).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
-                                                                        (Meter.of(3.5),
-                                                                        Meter.of(2.5)),
-                                                                Rotation2d.fromDegrees(125))));
-
-        m_driverController.button(6).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
-                                                                                (Meter.of(5),
-                                                                                Meter.of(3)),
-                                                                        Rotation2d.fromDegrees(-50))));
-
-         m_driverController.button(5).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
-                                                                        (Meter.of(6.1),
-                                                                        Meter.of(4)),
-                                                                Rotation2d.fromDegrees(180))));
-
-        m_driverController.button(4).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
-                                                                                (Meter.of(5.2),
-                                                                                Meter.of(5.2)),
-                                                                        Rotation2d.fromDegrees(-120))));
-
-
-        m_driverController.button(3).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
-                                                                                (Meter.of(3.3),
-                                                                                Meter.of(5.3)),
-                                                                        Rotation2d.fromDegrees(-50))));
-        //Processor
-        m_driverController.button(2).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
-                                                                                (Meter.of(11.5),
-                                                                                Meter.of(7.5)),
-                                                                        Rotation2d.fromDegrees(90))));  
-        //Human Playerstation                                                                                
-        m_driverController.button(1).whileTrue(drivebase.driveToPose(new Pose2d(new Translation2d
-                                                                                (Meter.of(1),
-                                                                                Meter.of(7)),
-                                                                          Rotation2d.fromDegrees(130))));  
-                                                                                
-            // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-            // cancelling on release.
-
-            
-            m_driverController.button(11).whileTrue(elevator.setGoal(3));
-            m_driverController.button(12).whileTrue(elevator.setGoal(6));
-            m_driverController.button(13).whileTrue(elevator.setGoal(9));
-            m_driverController.button(14).whileTrue(arm.setGoal(45));
-            m_driverController.button(15).whileTrue(arm.setGoal(90));
-            m_driverController.button(16).whileTrue(setElevArm(10, 70));
-            elevator.atHeight(5, 0.1).whileTrue(Commands.print("I AM ALIVE, YAAA HAAAAA"));*/
-        
-          }
-             
-        
-        
-          /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
+   /* Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
