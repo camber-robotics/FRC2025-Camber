@@ -182,11 +182,11 @@ public class RobotContainer {
         m_operatorController.rightTrigger().onTrue(arm.tiltTo(-0.05,0.8));
        
         //auto lines
-        NamedCommands.registerCommand("raiseElevator", elevator.goTo(0.3,0.3));//.withTimeout(0.2));
-        NamedCommands.registerCommand("out", intake.setPower(-0.3).repeatedly());//.withTimeout(1));//.withTimeout(1));
-        NamedCommands.registerCommand("armL2", arm.tiltTo(-0.76, 0.6));//.withTimeout(0.2));
+        NamedCommands.registerCommand("raiseElevator", elevator.goTo(0.3,0.3).withTimeout(3.5));
+        NamedCommands.registerCommand("out", intake.setPower(-0.3).repeatedly().withTimeout(1));//.withTimeout(1));
+        NamedCommands.registerCommand("armL2", arm.tiltTo(-0.76, 0.6).withTimeout(3.5));
         NamedCommands.registerCommand("outPrint", Commands.print("IAMOUT"));//.withTimeout(1));
-        NamedCommands.registerCommand("armIntake", arm.tiltTo(-0.69, 0.4));//.withTimeout(0.2));
+        NamedCommands.registerCommand("armIntake", arm.tiltTo(-0.69, 0.4).withTimeout(0.2));
 
   }
         
@@ -196,7 +196,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand("right shoot test"); //new new auto worked in comp; right shoot test
+    return drivebase.getAutonomousCommand("test auto"); //new new auto worked in comp; right shoot test
   }
 
    public ParallelCommandGroup setElevArm (double goal, double degree){

@@ -21,12 +21,6 @@
                 }
               },
               {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.1
-                }
-              },
-              {
                 "type": "path",
                 "data": {
                   "pathName": "left shoot path"
@@ -36,15 +30,28 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.1
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "out"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "left intake path"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "armIntake"
+                }
+              }
+            ]
           }
         }
       ]

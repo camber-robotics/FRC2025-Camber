@@ -26,13 +26,32 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Copy of right shoot Path"
+            "pathName": "right shoot path"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "out"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "right intake path"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "armIntake"
+                }
+              }
+            ]
           }
         }
       ]

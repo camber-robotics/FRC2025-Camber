@@ -235,7 +235,7 @@ public Command tiltTo(double pos, double pow) {
     .andThen(setPower(0));
                         //.unless(() -> m_encoder.getPosition() == pos);
   return setPower(0);
-  }).until(()->m_motor.get() == 0);
+  }).until(()->m_motor.get() == 0).finallyDo(()->{m_motor.set(0);});
 }
 
 
